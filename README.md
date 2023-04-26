@@ -15,11 +15,11 @@
 {Describe the programming language that you used and any libraries.}
 
 # Collaborators
-Trevor Wayman
-Alysa Jarrell
-Joshua Hamilton
-Joel Doh
-Caleb Salyards
+- Trevor Wayman
+- Alysa Jarrell
+- Joshua Hamilton
+- Joel Doh
+- Caleb Salyards
 
 # Useful Websites
 
