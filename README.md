@@ -1,6 +1,6 @@
 # Overview
 {Provide a description of your team project.  Describe how to use the software.}
-A plateformer game made with Python using the Arcade library. 
+*A plateformer game made with Python using the Arcade library. 
 
 {If this is an online class, then provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the software running and a walkthrough of the code.}
 
@@ -11,8 +11,8 @@ A plateformer game made with Python using the Arcade library.
 {Describe the tools that you used to develop the software}
 
 {Describe the programming language that you used and any libraries.}
-Languages: Python
-Libraries: Arcade
+*Languages: Python
+*Libraries: Arcade
 
 # Collaborators
 - Trevor Wayman
