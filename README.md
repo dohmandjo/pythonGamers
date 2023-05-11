@@ -13,7 +13,8 @@ A platformer game made with Python using the Arcade library.
 
 {Describe the programming language that you used and any libraries.}
 
-Languages: Python<br>
+Languages: Python
+<br>
 Libraries: Arcade
 
 # Collaborators
@@ -26,8 +27,10 @@ Libraries: Arcade
 # Useful Websites
 
 {Make a list of websites that you found helpful in this project}
-* [Web Site Name](http://url.link.goes.here)
-* [Web Site Name](http://url.link.goes.here)
+* [Python.org](http://python.org)
+* [Python Arcade API Documentation](https://api.arcade.academy/en/stable/)
+* [Site Name]()
+* [Site Name]()
 
 # Future Work
 
