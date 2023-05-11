@@ -38,16 +38,19 @@
 """
 import arcade
 import os
+# import sys
+os.chdir(os.getcwd())
+
+from game import constants
 try: 
     from game import settings
 except ImportError:
     print("`settings.py` was not found. Creating one with the default values.")
-    settings = open("game/settings.py", "a")
+    settings = open("game/settings.py", "x")
     settings.write(constants.DEFAULT_SETTINGS)
     settings.close()
     from game import settings
 
-from game import constants
 # from game.engine import physics
 from game.engine.arcade_engine import ArcadeEngine
 from game.entity.player import Player
