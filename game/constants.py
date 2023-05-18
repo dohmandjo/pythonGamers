@@ -10,8 +10,9 @@ import random
 
 WINDOW_TITLE = "Game name goes here"
 
-
 STARTING_LEVEL = 0
+
+PLAYER_IMAGES = ["res/player0.png", "res/player1.png"]
 
 DEFAULT_SETTINGS = \
 '''
