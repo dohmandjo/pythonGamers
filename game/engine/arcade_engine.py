@@ -1,11 +1,16 @@
 import arcade
+from game.engine.user_input import UserInput
+from game.engine.physics import Physics
 
 class ArcadeEngine(arcade.Window):
     def __init__(self, entities, window_title, target_display, fullscreen, width, height):
-        window_size = arcade.get_display_size(target_display)
+        self.window_size = arcade.get_display_size(target_display)
         super().__init__(width, height, window_title)
         if fullscreen:
-            super().set_fullscreen(True, arcade.get_screens()[target_display], None, window_size[0], window_size[1])
+            super().set_fullscreen(True, arcade.get_screens()[target_display], None, self.window_size[0], self.window_size[1])
+        self.entities = entities
+        self.user_input = UserInput()
+        self.physics = Physics()
 
     def setup(self):
         arcade.set_background_color(arcade.color.BLACK)
@@ -15,36 +20,44 @@ class ArcadeEngine(arcade.Window):
             This function is where game 'ticks' are processed. Any code that you
             want to run on every frame, so to speak, must be executed from here.
         """
+        for player in self.entities["player"]:
+            player.handle_user_input(self.user_input)
+        self.physics.tick(self.entities)
         return super().on_update(delta_time)
     
     def on_draw(self):
         """
             This function is where game objects are drawn.
         """
+        arcade.start_render()
+        for player in self.entities["player"]:
+            player.draw()
         return super().on_draw()
     
-    def on_key_press(self, symbol: int, modifiers: int):
+    def on_key_press(self, symbol, modifiers):
         """
             A class should be instantiated to handle the user input.
             Call to that class here. This function executes when a key is pressed DOWN.
         """
+        self.user_input.key_down(symbol)
         return super().on_key_press(symbol, modifiers)
     
-    def on_key_release(self, symbol: int, modifiers: int):
+    def on_key_release(self, symbol, modifiers):
         """
             A class should be instantiated to handle the user input.
             Call to that class here. This function executes when a key is pressed UP.
         """
+        self.user_input.key_up(symbol)
         return super().on_key_release(symbol, modifiers)
     
-    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
+    def on_mouse_press(self, x, y, button, modifiers):
         """
             A class should be instantiated to handle the user input.
             Call to that class here. This function executes a mouse button is clicked DOWN.
         """
         return super().on_mouse_press(x, y, button, modifiers)
     
-    def on_mouse_release(self, x: int, y: int, button: int, modifiers: int):
+    def on_mouse_release(self, x, y, button, modifiers):
         """
             A class should be instantiated to handle the user input.
             Call to that class here. This function executes a mouse button is clicked UP.

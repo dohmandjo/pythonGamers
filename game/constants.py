@@ -12,7 +12,10 @@ WINDOW_TITLE = "Game name goes here"
 
 STARTING_LEVEL = 0
 
-PLAYER_IMAGES = ["res/player0.png", "res/player1.png"]
+PLAYER_IMAGES = ["res/miner.png", "res/miner-run.png"]
+PLAYER_CONTROLS = [arcade.key.W, arcade.key.S, arcade.key.D, arcade.key.A]
+PLAYER_SPEED = 10
+PLAYER_ACCEL = 1
 
 DEFAULT_SETTINGS = \
 '''

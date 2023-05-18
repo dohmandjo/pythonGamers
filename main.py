@@ -79,7 +79,8 @@ def main():
     arcade.run()
 
 def populate(entities):
-    entities["player"] = [Player(constants.PLAYER_IMAGES)]
+    entities["player"] = [Player(constants.PLAYER_IMAGES, constants.PLAYER_CONTROLS, constants.PLAYER_SPEED, constants.PLAYER_ACCEL)]
+    return entities
 
 if __name__ == "__main__":
     # if os.path.isfile("game/settings.py"):
