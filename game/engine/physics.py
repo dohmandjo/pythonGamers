@@ -10,10 +10,12 @@ class Physics():
         pass
 
     def move(self, entity, limit=-1):
-        pos_x = entity.center_x + self.cap(entity.velocity[0] + entity.acceleration[0], limit)
-        pos_y = entity.center_y + self.cap(entity.velocity[1] + entity.acceleration[1], limit)
-        entity.center_x = pos_x
-        entity.center_y = pos_y
+        # print(f"Entity starting at {entity.velocity[0]},{entity.velocity[1]}")
+        pos_x = self.cap(entity.velocity[0] + entity.acceleration[0], limit)
+        pos_y = self.cap(entity.velocity[1] + entity.acceleration[1], limit)
+        entity.velocity = (pos_x, pos_y)
+        entity.center_x += pos_x
+        entity.center_y += pos_y
 
     def cap(self, value, cap):
         """ 
@@ -23,4 +25,5 @@ class Physics():
         if cap <= 0:
             return value
         neg_cap = cap * -1
+        # print(f"Capping {value} to a max of +/-{cap}")
         return max(neg_cap, min(value, cap))

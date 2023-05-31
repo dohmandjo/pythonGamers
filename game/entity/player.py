@@ -16,4 +16,19 @@ class Player(Entity):
         down = self.controls[1]
         right = self.controls[2]
         left = self.controls[3]
-        self.acceleration = input_service.get_direction(up, down, right, left, self.top_acceleration)
+        new_acceleration = input_service.get_direction(up, down, right, left, self.top_acceleration)
+
+        if new_acceleration[0] != 0:
+            self.acceleration = (new_acceleration[0], self.acceleration[1])
+        elif self.velocity[0] > 0:
+            if self.top_acceleration > self.velocity[0]:
+                self.acceleration = (self.velocity[0] * -1, self.acceleration[1])
+            else:
+                self.acceleration = (self.top_acceleration * -1, self.acceleration[1])
+        elif self.velocity[0] < 0:
+            if self.top_acceleration > self.velocity[0] * -1:
+                self.acceleration = (self.velocity[0] * -1, self.acceleration[1]) 
+            else:
+                self.acceleration = (self.top_acceleration, self.acceleration[1])
+        elif self.velocity[0] == 0:
+            self.acceleration = (0, self.acceleration[1])
