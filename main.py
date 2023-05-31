@@ -49,7 +49,7 @@ except ImportError:
     settings = open("game/settings.py", "x")
     settings.write(constants.DEFAULT_SETTINGS)
     settings.close()
-    from game import settings
+    exit()
 
 # from game.engine import physics
 from game.engine.arcade_engine import ArcadeEngine
