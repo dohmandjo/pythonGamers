@@ -2,33 +2,38 @@ from game.entity.entity import Entity
 
 class Player(Entity):
 
-    def __init__(self, image_file, controls, top_speed, acceleration):
-        self.base_image = image_file[0]
-        self.run_image = image_file[1]
-        super().__init__(self.base_image)
+    def __init__(self, sprite_sheet, controls):
         self.controls = controls
-        self.top_speed = top_speed
-        self.top_acceleration = acceleration
-        print(f"Creating player with the following controls: \n\tUP: {self.controls[0]} \n\tDown: {self.controls[1]} \n\tRight: {self.controls[2]} \n\tLeft: {self.controls[3]}")
+        self.acceleration_speed = 1
+        self.top_speed = 20
+        self.jump_height = 30
+        self.can_jump = False
+        self.air_strafe = False
+        super().__init__(sprite_sheet)
 
     def handle_user_input(self, input_service):
-        up = self.controls[0]
-        down = self.controls[1]
-        right = self.controls[2]
-        left = self.controls[3]
-        new_acceleration = input_service.get_direction(up, down, right, left, self.top_acceleration)
+        ups = self.controls[0]
+        downs = self.controls[1]
+        rights = self.controls[2]
+        lefts = self.controls[3]
+        new_acceleration = input_service.get_direction(ups, downs, rights, lefts, self.acceleration_speed)
 
-        if new_acceleration[0] != 0:
-            self.acceleration = (new_acceleration[0], self.acceleration[1])
-        elif self.velocity[0] > 0:
-            if self.top_acceleration > self.velocity[0]:
-                self.acceleration = (self.velocity[0] * -1, self.acceleration[1])
-            else:
-                self.acceleration = (self.top_acceleration * -1, self.acceleration[1])
-        elif self.velocity[0] < 0:
-            if self.top_acceleration > self.velocity[0] * -1:
-                self.acceleration = (self.velocity[0] * -1, self.acceleration[1]) 
-            else:
-                self.acceleration = (self.top_acceleration, self.acceleration[1])
-        elif self.velocity[0] == 0:
-            self.acceleration = (0, self.acceleration[1])
+        if self.air_strafe or self.can_jump:
+            if new_acceleration[0] != 0:
+                self.change_x = self.top_speed_limiter(self.change_x + new_acceleration[0], self.top_speed)
+            elif (self.change_x > 0):
+                if self.change_x > self.acceleration_speed:
+                    self.change_x -= self.acceleration_speed
+                else:
+                    self.change_x = 0
+            elif (self.change_x < 0):
+                if abs(self.change_x) > self.acceleration_speed:
+                    self.change_x += self.acceleration_speed
+                else:
+                    self.change_x = 0
+
+        if (new_acceleration[1] != 0) and self.can_jump:
+            self.change_y += self.jump_height
+
+    def top_speed_limiter(self, speed, limit):
+        return min(max(speed, -1 * limit), limit)

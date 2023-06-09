@@ -12,17 +12,14 @@ from game import constants
 
 class Entity(arcade.Sprite):
 
-    def __init__(self, image_file):
+    def __init__(self, sprite_sheet=None, x=0, y=0):
         """ 
             Initialize the arcade.Sprite class. 
             The bare minimum `Sprite` requires is an image to point to, which *can* be `None`.
             Other things you can implement here are scaling and flipping the image.
         """
-        super().__init__(image_file)
-        # self.push = (0, 0)
-        self.acceleration = (0, 0)
-        self.velocity = (0, 0)
-
-    def teleport(self, coordinates):
-        self.center_x = coordinates[0]
-        self.center_y = coordinates[1]
+        super().__init__(sprite_sheet[0], center_x=x, center_y=y)
+    
+    def teleport(self, x, y):
+        self.center_x = x
+        self.center_y = y

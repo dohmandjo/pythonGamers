@@ -8,22 +8,24 @@ import random
     In Python semantics, all constant variables are FULL_CAPS_AND_SNAKE_CASE.
 """
 
+SETTINGS_FILE = "settings.json"
+
 WINDOW_TITLE = "Game name goes here"
+
+PLAYER_IMAGES = ["res/miner.png", "res/miner-run.png"]
+PLAYER_CONTROLS = [[arcade.key.W, arcade.key.UP], 
+                   [arcade.key.S, arcade.key.DOWN], 
+                   [arcade.key.D, arcade.key.RIGHT], 
+                   [arcade.key.A, arcade.key.LEFT]]
 
 STARTING_LEVEL = 0
 
-PLAYER_IMAGES = ["res/miner.png", "res/miner-run.png"]
-PLAYER_CONTROLS = [arcade.key.W, arcade.key.S, arcade.key.D, arcade.key.A]
-PLAYER_SPEED = 10
-PLAYER_ACCEL = 2
-
 DEFAULT_SETTINGS = \
 '''
-"""
-    This file contains per-device settings. The default values are stored in `constants.py`.
-"""
-monitor = 0 # Which display to place window on.
-windowed_width = 1280
-windowed_height = 720
-fullscreen = False
+{
+    "monitor": 0,
+    "windowed_width": 1280,
+    "windowed_height": 720,
+    "fullscreen": "False"
+}
 '''
