@@ -38,26 +38,25 @@
 """
 import arcade
 import os
-# import sys
-os.chdir(os.getcwd())
+import json
 
 from game import constants
-try: 
-    from game import settings
-except ImportError:
-    print("`settings.py` was not found. Creating one with the default values.")
-    settings = open("game/settings.py", "x")
-    settings.write(constants.DEFAULT_SETTINGS)
-    settings.close()
-    exit()
-
-# from game.engine import physics
 from game.engine.arcade_engine import ArcadeEngine
 from game.entity.player import Player
+from game.entity.stage import Stage
 
+if os.path.exists(constants.SETTINGS_FILE):
+    file = open(constants.SETTINGS_FILE)
+    SETTINGS = json.load(file)
+else:
+    print("Settings file not detected, creating default.")
+    default_settings_file = open(constants.SETTINGS_FILE, "x")
+    default_settings_file.write(constants.DEFAULT_SETTINGS)
+    default_settings_file.close()
+    SETTINGS = json.load(constants.DEFAULT_SETTINGS)
 
 def main():
-    entities = {}
+    entities = arcade.Scene()
     """ 
         Entity Types:
             Player: Entity with separate stats and user-control
@@ -69,25 +68,31 @@ def main():
     """
     # Add initial entities here:
     entities = populate(entities)
+    engine = ArcadeEngine(
+         entities, 
+         constants.WINDOW_TITLE, 
+         SETTINGS["monitor"], 
+         SETTINGS["fullscreen"], 
+         SETTINGS["windowed_width"], 
+         SETTINGS["windowed_height"]
+    )
+    engine.setup()
+    engine.run()
 
-
-    INPUT_SERVICE = None # ArcadeInputService()
-    OUTPUT_SERVICE = None # ArcadeOutputService()
-
-    engine = ArcadeEngine(entities, constants.WINDOW_TITLE, settings.monitor, settings.fullscreen, settings.windowed_width, settings.windowed_height)
-
-    arcade.run()
-
-def populate(entities):
-    entities["player"] = [Player(constants.PLAYER_IMAGES, constants.PLAYER_CONTROLS, constants.PLAYER_SPEED, constants.PLAYER_ACCEL)]
+def populate(entities=arcade.Scene()):
+    # entities.add_sprite("player", arcade.Sprite(constants.PLAYER_IMAGES[0], center_x=500, center_y=500))
+    entities.add_sprite("player", Player(constants.PLAYER_IMAGES, constants.PLAYER_CONTROLS))
+    entities.get_sprite_list("player").sprite_list[0].teleport(500, 500)
+    # entities.add_sprite("stage", arcade.Sprite("res/stage/platform1.png", center_x=500, center_y=100))
+    entities.add_sprite_list("stage", use_spatial_hash=True)
+    # entities.add_sprite("stage", Stage("res/stage/platform1.png", 500, 100))
+    # TEST PLATFORM
+    for x in range(0, 1250, 64):
+            floor = arcade.Sprite("res/stage/platform1.png")
+            floor.center_x = x
+            floor.center_y = 64
+            entities.add_sprite("stage", floor)
     return entities
 
 if __name__ == "__main__":
-    # if os.path.isfile("game/settings.py"):
-    #     from game.settings import *
-    # else:
-    #     settings = open("game/settings.py", "a")
-    #     settings.write(constants.DEFAULT_SETTINGS)
-    #     settings.close()
-    #     from game.settings import *
     main()

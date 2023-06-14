@@ -15,15 +15,30 @@ class UserInput():
     def mouse_up(self, button):
         self._mouse_list.remove(button)
 
-    def get_direction(self, up, down, right, left, magnitude=1):
+    def get_direction(self, ups, downs, rights, lefts, magnitude=1):
         x, y = 0, 0
+        for key in ups:
+            if key in self._key_list:
+                y = 1 * magnitude
+        for key in downs:
+            if key in self._key_list:
+                y = -1 * magnitude
+        for key in rights:
+            if key in self._key_list:
+                x = 1 * magnitude
+        for key in lefts:
+            if key in self._key_list:
+                x = -1 * magnitude
+        return (x, y)
+        
+        # FOR ONLY ONE BUTTON PER KEY MAPPING
         # for key in self._key_list:
-        if up in self._key_list:
+        if ups in self._key_list:
             y = 1 * magnitude
-        elif down in self._key_list:
+        elif downs in self._key_list:
             y = -1 * magnitude
-        if right in self._key_list:
+        if rights in self._key_list:
             x = 1 * magnitude
-        elif left in self._key_list:
+        elif lefts in self._key_list:
             x = -1 * magnitude
         return (x, y)
