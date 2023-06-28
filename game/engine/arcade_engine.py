@@ -16,6 +16,7 @@ class ArcadeEngine(arcade.Window):
         if fullscreen == "True":
             super().set_fullscreen(True, arcade.get_screens()[target_display], None, window_size[0], window_size[1])
         self.layers = {}
+        self.backgrounds = arcade.SpriteList()
         self.physics = Physics(self.entities)
         self.user_input = UserInput()
 
@@ -24,6 +25,13 @@ class ArcadeEngine(arcade.Window):
         self.layers["background"] = arcade.Camera(self.width, self.height)
         self.layers["level"] = arcade.Camera(self.width, self.height)
         self.layers["gui"] = arcade.Camera(self.width, self.height)
+        self.backgrounds.append(arcade.Sprite("res/background/bg-layer1.png"))
+        self.backgrounds.append(arcade.Sprite("res/background/bg-layer2.png"))
+        self.backgrounds.append(arcade.Sprite("res/background/bg-layer3.png"))
+        self.backgrounds.append(arcade.Sprite("res/background/bg-layer4.png"))
+        self.backgrounds.append(arcade.Sprite("res/background/bg-layer5.png"))
+        self.backgrounds.append(arcade.Sprite("res/background/bg-layer6.png"))
+        self.backgrounds.append(arcade.Sprite("res/background/bg-layer7.png"))
 
     def on_update(self, delta_time: float):
         """
@@ -34,6 +42,14 @@ class ArcadeEngine(arcade.Window):
             player.handle_user_input(self.user_input)
         self.physics.tick()
         self.camera_update()
+        x = self.layers["background"].viewport_width / 2
+        y = self.layers["background"].viewport_height / 2
+        for i, layer in enumerate(self.backgrounds):
+            if i == 0:
+                layer.center_x = x
+            else:
+                layer.center_x = x + (self.player1.center_x / (i * 3))
+            layer.center_y = y
         return super().on_update(delta_time)
     
     def on_draw(self):
@@ -42,7 +58,7 @@ class ArcadeEngine(arcade.Window):
         """
         self.clear()
         self.layers["background"].use()
-        # Draw background elements here!!
+        self.backgrounds.draw()
         self.layers["level"].use()
         self.entities.draw()
         self.layers["gui"].use()
