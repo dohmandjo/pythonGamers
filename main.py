@@ -88,7 +88,7 @@ def populate(entities=arcade.Scene()):
     # entities.add_sprite("stage", Stage("res/stage/platform1.png", 500, 100))
     # TEST PLATFORM
     for x in range(0, 1250, 64):
-            floor = arcade.Sprite("res/stage/platform1.png")
+            floor = Stage("res/stage/platform1.png")
             floor.center_x = x
             floor.center_y = 64
             entities.add_sprite("stage", floor)
