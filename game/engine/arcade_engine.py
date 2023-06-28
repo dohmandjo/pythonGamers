@@ -8,7 +8,7 @@ class ArcadeEngine(arcade.Window):
         Various evens are called below, and given handles that send them off to other
         places around the file structure. They *should* be pretty self-explanatory.
     """
-    def __init__(self, entities, window_title, target_display, fullscreen, width, height):
+    def __init__(self, entities:arcade.Scene, window_title, target_display, fullscreen, width, height):
         self.entities = entities
         window_size = arcade.get_display_size(target_display)
         self.player1 = self.entities["player"][0]
@@ -25,13 +25,10 @@ class ArcadeEngine(arcade.Window):
         self.layers["background"] = arcade.Camera(self.width, self.height)
         self.layers["level"] = arcade.Camera(self.width, self.height)
         self.layers["gui"] = arcade.Camera(self.width, self.height)
-        self.backgrounds.append(arcade.Sprite("res/background/bg-layer1.png"))
-        self.backgrounds.append(arcade.Sprite("res/background/bg-layer2.png"))
-        self.backgrounds.append(arcade.Sprite("res/background/bg-layer3.png"))
-        self.backgrounds.append(arcade.Sprite("res/background/bg-layer4.png"))
-        self.backgrounds.append(arcade.Sprite("res/background/bg-layer5.png"))
-        self.backgrounds.append(arcade.Sprite("res/background/bg-layer6.png"))
-        self.backgrounds.append(arcade.Sprite("res/background/bg-layer7.png"))
+        self.x_limit = max([sprite.center_x for sprite in self.entities.get_sprite_list("stage")])
+        print(self.x_limit)
+        for i in range(1, 7):
+            self.backgrounds.append(arcade.Sprite(f"res/background/bg-layer{i}.png"))
 
     def on_update(self, delta_time: float):
         """
