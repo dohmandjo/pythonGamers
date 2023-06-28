@@ -45,7 +45,7 @@ class ArcadeEngine(arcade.Window):
             if i == 0:
                 layer.center_x = x
             else:
-                layer.center_x = x + (self.player1.center_x / (i * 3))
+                layer.center_x = x + ((self.x_limit / 2 - self.player1.center_x) / (i * 3))
             layer.center_y = y
         return super().on_update(delta_time)
     
