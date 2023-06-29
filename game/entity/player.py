@@ -6,9 +6,9 @@ class Player(Entity):
         self.controls = controls
         self.acceleration_speed = 1
         self.top_speed = 20
-        self.jump_height = 30
+        self.jump_height = 20
         self.can_jump = False
-        self.air_strafe = False
+        self.air_strafe = True
         super().__init__(sprite_sheet)
 
     def handle_user_input(self, input_service):
