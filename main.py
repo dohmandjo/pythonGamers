@@ -87,13 +87,12 @@ def populate(entities=arcade.Scene()):
     # entities.add_sprite("stage", arcade.Sprite("res/stage/platform1.png", center_x=500, center_y=100))
     entities.add_sprite_list("stage", use_spatial_hash=True)
     # entities.add_sprite("stage", Stage("res/stage/platform1.png", 500, 100))
-    
-    
     # creates floor for total length with randomized images
     for x in range(0, 12500, 100):
             floor = arcade.Sprite(constants.FLOOR_IMAGES[random.randint(0,3)])
             floor.center_x = x
             floor.center_y = constants.FLOOR_HEIGHT
+
             entities.add_sprite("stage", floor)
     # adds a (4 pngs) platform at the first height so other heights can be reached 
     for x in range(800, 1056, 100):
