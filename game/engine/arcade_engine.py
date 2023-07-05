@@ -26,6 +26,7 @@ class ArcadeEngine(arcade.Window):
         self.layers["level"] = arcade.Camera(self.width, self.height)
         self.layers["gui"] = arcade.Camera(self.width, self.height)
         self.x_limit = max([sprite.center_x for sprite in self.entities.get_sprite_list("stage")])
+        self.player1.teleport(self.x_limit / 2, self.player1.center_y)
         print(self.x_limit)
         for i in range(1, 7):
             self.backgrounds.append(arcade.Sprite(f"res/background/bg-layer{i}.png"))
