@@ -46,15 +46,13 @@ from game.engine.arcade_engine import ArcadeEngine
 from game.entity.player import Player
 from game.entity.stage import Stage
 
-if os.path.exists(constants.SETTINGS_FILE):
-    file = open(constants.SETTINGS_FILE)
-    SETTINGS = json.load(file)
-else:
+if not os.path.exists(constants.SETTINGS_FILE):
     print("Settings file not detected, creating default.")
     default_settings_file = open(constants.SETTINGS_FILE, "x")
     default_settings_file.write(constants.DEFAULT_SETTINGS)
     default_settings_file.close()
-    SETTINGS = json.load(constants.DEFAULT_SETTINGS)
+file = open(constants.SETTINGS_FILE)
+SETTINGS = json.load(file)
 
 def main():
     entities = arcade.Scene()
