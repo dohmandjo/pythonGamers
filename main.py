@@ -103,16 +103,23 @@ def populate(entities=arcade.Scene()):
 
     # continues randomized platforms at random (given) platform heights for rest of the map
     for x in range(1184, 12500, 100):
-        randNum = random.randint(0,4)
+        platformChance = random.randint(0,4)
+        gemChance = random.randint(0, 6)
         # if 4 is the random int, it will leave a blank space instead of a platform
-        if randNum == 4:
+        if platformChance == 4:
              continue
 
-        platform = arcade.Sprite(constants.FLOOR_IMAGES[randNum])
+        platform = arcade.Sprite(constants.FLOOR_IMAGES[platformChance])
         platform.center_x = x
         platform.center_y = constants.PLATFORM_HEIGHTS[random.randint(0,2)] #gives height of platform from list in Constants
         entities.add_sprite("stage", platform)
 
+        if gemChance == 5:
+            bufferHeight = 80
+            gem = arcade.Sprite(constants.GEM_IMAGES[random.randint(0, len(constants.GEM_IMAGES) - 1)])
+            gem.center_x = x
+            gem.center_y = platform.center_y + bufferHeight
+            entities.add_sprite("drops", gem)
         
     return entities
 

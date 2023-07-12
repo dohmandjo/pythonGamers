@@ -43,10 +43,10 @@ class ArcadeEngine(arcade.Window):
         x = self.layers["background"].viewport_width / 2
         y = self.layers["background"].viewport_height / 2
         for i, layer in enumerate(self.backgrounds):
-            if i == 0:
-                layer.center_x = x
-            else:
-                layer.center_x = x + ((self.x_limit / 2 - self.player1.center_x) / (i * 3))
+            # if i == 0:
+            #     layer.center_x = x
+            # else:
+            layer.center_x = x + ((self.x_limit / 2 - self.player1.center_x) / ((7 - i) * 3))
             layer.center_y = y
         return super().on_update(delta_time)
     
