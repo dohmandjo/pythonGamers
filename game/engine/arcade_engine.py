@@ -1,6 +1,9 @@
+from turtle import position
+from typing import Self
 import arcade
 from game.engine.user_input import UserInput
 from game.engine.physics import Physics
+import time
 
 class ArcadeEngine(arcade.Window):
     """ 
@@ -18,12 +21,44 @@ class ArcadeEngine(arcade.Window):
         self.layers = {}
         self.physics = Physics(self.entities)
         self.user_input = UserInput()
+        self.startsfx = arcade.load_sound("res/sfx/start.wav")
+        # arcade.play_sound(startsfx,1.0,-1,False,1)
+        # Add sounds
+        self.bgm = arcade.load_sound("res/sfx/background.wav")
+        self.coalsfx = arcade.load_sound("res/sfx/coal.wav")
+        self.gemsfx = arcade.load_sound("res/sfx/gemget.wav")
+        self.startsfx = arcade.load_sound("res/sfx/start.wav")
+        #arcade.Sound(self.bgm, streaming=True)
+        self.music_list = []
+        self.current_song_index = 0
+        self.music = None
+
+    def play_song(self):
+        """ Play the song. """
+        MUSIC_VOLUME = 1
+        # Play the next song
+        print(f"Playing {self.music_list[self.current_song_index]}")
+        self.music = arcade.Sound(self.music_list[self.current_song_index], streaming=True)
+        self.current_player = self.music.play(MUSIC_VOLUME)
+        # This is a quick delay. If we don't do this, our elapsed time is 0.0
+        # and on_update will think the music is over and advance us to the next
+        # song before starting this one.
+        time.sleep(0.03)
+     
+    def advance_song(self):
+         """ Advance our pointer to the next song. This does NOT start the song. """
+         if self.current_song_index == 0:
+             self.current_song_index = 1
 
     def setup(self):
+       
         arcade.set_background_color(arcade.color.BLACK)
         self.layers["background"] = arcade.Camera(self.width, self.height)
         self.layers["level"] = arcade.Camera(self.width, self.height)
         self.layers["gui"] = arcade.Camera(self.width, self.height)
+        # List of music
+        self.music_list = ["res/sfx/start.wav","res/sfx/background.wav"]
+        self.play_song()
 
     def on_update(self, delta_time: float):
         """
@@ -34,7 +69,21 @@ class ArcadeEngine(arcade.Window):
             player.handle_user_input(self.user_input)
         self.physics.tick()
         self.camera_update()
+        # Add to gem pickup and coal pickup
+        # arcade.play_sound(gemsfx,1.0,-1,False,1)
+        # arcade.play_sound(coalsfx,1.0,-1,False,1)
+       
+        position = self.music.get_stream_position(self.current_player)
+ 
+        # The position pointer is reset to 0 right after we finish the song.
+        # This makes it very difficult to figure out if we just started playing
+        # or if we are doing playing.
+        if position == 0.0:
+             self.advance_song()
+             self.play_song()
+        
         return super().on_update(delta_time)
+         
     
     def on_draw(self):
         """
