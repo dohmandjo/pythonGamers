@@ -1,4 +1,3 @@
-from turtle import position
 import arcade
 from game.engine.user_input import UserInput
 from game.engine.physics import Physics
@@ -86,6 +85,11 @@ class ArcadeEngine(arcade.Window):
         for gem in gemget:
            gem.remove_from_sprite_lists()
            arcade.play_sound(self.gemsfx)
+           print(len(self.entities["drops"]))
+           if len(self.entities["drops"]) == 0 :
+               self.player1.can_move = False
+               self.physics.gravity_constant = 0
+               
         # arcade.play_sound(coalsfx,1.0,-1,False,1)
        
         position = self.music.get_stream_position(self.current_player)
