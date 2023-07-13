@@ -10,7 +10,7 @@ import random
 
 SETTINGS_FILE = "settings.json"
 
-WINDOW_TITLE = "Me, Mineself, and I"
+WINDOW_TITLE = "Game name goes here"
 
 PLAYER_IMAGES = ["res/miner.png", "res/miner-run.png"]
 PLAYER_CONTROLS = [[arcade.key.W, arcade.key.UP], 
@@ -25,6 +25,8 @@ PLATFORM_HEIGHTS = (264, 464, 664)
 GEM_IMAGES = ["res/drop/black-gem.png", "res/drop/red-gem.png", "res/drop/blue-gem.png", "res/drop/yellow-gem.png", "res/drop/green-gem.png", "res/drop/rock.png", "res/drop/coal.png"]
 
 STARTING_LEVEL = 0
+
+MUSIC_VOLUME = 1
 
 DEFAULT_SETTINGS = \
 '''

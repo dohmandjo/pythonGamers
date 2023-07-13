@@ -4,6 +4,7 @@ import arcade
 from game.engine.user_input import UserInput
 from game.engine.physics import Physics
 import time
+from game import constants
 
 class ArcadeEngine(arcade.Window):
     """ 
@@ -23,7 +24,6 @@ class ArcadeEngine(arcade.Window):
         self.physics = Physics(self.entities)
         self.user_input = UserInput()
         self.startsfx = arcade.load_sound("res/sfx/start.wav")
-        # arcade.play_sound(startsfx,1.0,-1,False,1)
         # Add sounds
         self.bgm = arcade.load_sound("res/sfx/background.wav")
         self.coalsfx = arcade.load_sound("res/sfx/coal.wav")
@@ -42,11 +42,10 @@ class ArcadeEngine(arcade.Window):
 
     def play_song(self):
         """ Play the song. """
-        MUSIC_VOLUME = 1
         # Play the next song
         print(f"Playing {self.music_list[self.current_song_index]}")
         self.music = arcade.Sound(self.music_list[self.current_song_index], streaming=True)
-        self.current_player = self.music.play(MUSIC_VOLUME)
+        self.current_player = self.music.play(constants.MUSIC_VOLUME)
         # This is a quick delay. If we don't do this, our elapsed time is 0.0
         # and on_update will think the music is over and advance us to the next
         # song before starting this one.
@@ -90,7 +89,10 @@ class ArcadeEngine(arcade.Window):
             layer.center_x = x + ((self.x_limit / 2 - self.player1.center_x) / ((7 - i) * 3))
             layer.center_y = y
         # Add to gem pickup and coal pickup
-        # arcade.play_sound(gemsfx,1.0,-1,False,1)
+        gemget = arcade.check_for_collision_with_list(self.entities["player"][0], self.entities["drops"])
+        for gem in gemget:
+           gem.remove_from_sprite_lists()
+           arcade.play_sound(self.gemsfx)
         # arcade.play_sound(coalsfx,1.0,-1,False,1)
        
         position = self.music.get_stream_position(self.current_player)
