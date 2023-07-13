@@ -33,12 +33,6 @@ class ArcadeEngine(arcade.Window):
         self.music_list = []
         self.current_song_index = 0
         self.music = None
-        
-        # Add sounds
-        self.bgm = arcade.load_sound("res/sfx/background.wav")
-        self.coalsfx = arcade.load_sound("res/sfx/coal.wav")
-        self.gemsfx = arcade.load_sound("res/sfx/gemget.wav")
-        self.startsfx = arcade.load_sound("res/sfx/start.wav")
 
     def play_song(self):
         """ Play the song. """
