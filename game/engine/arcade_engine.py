@@ -8,7 +8,7 @@ class ArcadeEngine(arcade.Window):
         Various evens are called below, and given handles that send them off to other
         places around the file structure. They *should* be pretty self-explanatory.
     """
-    def __init__(self, entities, window_title, target_display, fullscreen, width, height):
+    def __init__(self, entities:arcade.Scene, window_title, target_display, fullscreen, width, height):
         self.entities = entities
         window_size = arcade.get_display_size(target_display)
         self.player1 = self.entities["player"][0]
@@ -16,6 +16,7 @@ class ArcadeEngine(arcade.Window):
         if fullscreen == "True":
             super().set_fullscreen(True, arcade.get_screens()[target_display], None, window_size[0], window_size[1])
         self.layers = {}
+        self.backgrounds = arcade.SpriteList()
         self.physics = Physics(self.entities)
         self.user_input = UserInput()
 
@@ -24,6 +25,11 @@ class ArcadeEngine(arcade.Window):
         self.layers["background"] = arcade.Camera(self.width, self.height)
         self.layers["level"] = arcade.Camera(self.width, self.height)
         self.layers["gui"] = arcade.Camera(self.width, self.height)
+        self.x_limit = max([sprite.center_x for sprite in self.entities.get_sprite_list("stage")])
+        self.player1.teleport(self.x_limit / 2, self.player1.center_y)
+        print(self.x_limit)
+        for i in range(1, 7):
+            self.backgrounds.append(arcade.Sprite(f"res/background/bg-layer{i}.png"))
 
     def on_update(self, delta_time: float):
         """
@@ -34,6 +40,14 @@ class ArcadeEngine(arcade.Window):
             player.handle_user_input(self.user_input)
         self.physics.tick()
         self.camera_update()
+        x = self.layers["background"].viewport_width / 2
+        y = self.layers["background"].viewport_height / 2
+        for i, layer in enumerate(self.backgrounds):
+            # if i == 0:
+            #     layer.center_x = x
+            # else:
+            layer.center_x = x + ((self.x_limit / 2 - self.player1.center_x) / ((7 - i) * 3))
+            layer.center_y = y
         return super().on_update(delta_time)
     
     def on_draw(self):
@@ -42,7 +56,7 @@ class ArcadeEngine(arcade.Window):
         """
         self.clear()
         self.layers["background"].use()
-        # Draw background elements here!!
+        self.backgrounds.draw()
         self.layers["level"].use()
         self.entities.draw()
         self.layers["gui"].use()
@@ -59,7 +73,7 @@ class ArcadeEngine(arcade.Window):
             screen_center_x = 0
         if screen_center_y < 0:
             screen_center_y = 0
-        player_centered = screen_center_x, screen_center_y
+        player_centered = screen_center_x, screen_center_y * .75
 
         self.layers["level"].move_to(player_centered)
     
