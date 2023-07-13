@@ -1,4 +1,5 @@
 from game.entity.entity import Entity
+from game.engine.user_input import UserInput
 
 class Player(Entity):
 
@@ -9,9 +10,10 @@ class Player(Entity):
         self.jump_height = 20
         self.can_jump = False
         self.air_strafe = True
+        self.has_jumped = False
         super().__init__(sprite_sheet)
 
-    def handle_user_input(self, input_service):
+    def handle_user_input(self, input_service:UserInput):
         ups = self.controls[0]
         downs = self.controls[1]
         rights = self.controls[2]
@@ -34,6 +36,7 @@ class Player(Entity):
 
         if (new_acceleration[1] != 0) and self.can_jump:
             self.change_y += self.jump_height
+            self.has_jumped = True
 
     def top_speed_limiter(self, speed, limit):
         return min(max(speed, -1 * limit), limit)
