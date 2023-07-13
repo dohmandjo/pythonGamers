@@ -76,6 +76,20 @@ def main():
          SETTINGS["windowed_width"], 
          SETTINGS["windowed_height"]
     )
+
+    # Add sounds
+    bgm = arcade.load_sound(
+    "res/sfx/background.wav"
+)
+    coalsfx = arcade.load_sound(
+    "res/sfx/coal.wav"
+)
+    gemsfx = arcade.load_sound(
+    "res/sfx/gemget.wav"
+)
+    startsfx = arcade.load_sound(
+    "res/sfx/start.wav"
+)
     engine.setup()
     engine.run()
 
