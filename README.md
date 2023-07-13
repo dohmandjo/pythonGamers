@@ -1,4 +1,4 @@
-# [NAME OF THE STINKING GAME]
+# Me, Mineself, and I
 
 ## Overview
 {Provide a description of your team project.  Describe how to use the software.}
