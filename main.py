@@ -39,21 +39,20 @@
 import arcade
 import os
 import json
+import random
 
 from game import constants
 from game.engine.arcade_engine import ArcadeEngine
 from game.entity.player import Player
 from game.entity.stage import Stage
 
-if os.path.exists(constants.SETTINGS_FILE):
-    file = open(constants.SETTINGS_FILE)
-    SETTINGS = json.load(file)
-else:
+if not os.path.exists(constants.SETTINGS_FILE):
     print("Settings file not detected, creating default.")
     default_settings_file = open(constants.SETTINGS_FILE, "x")
     default_settings_file.write(constants.DEFAULT_SETTINGS)
     default_settings_file.close()
-    SETTINGS = json.load(constants.DEFAULT_SETTINGS)
+file = open(constants.SETTINGS_FILE)
+SETTINGS = json.load(file)
 
 def main():
     entities = arcade.Scene()
@@ -100,12 +99,40 @@ def populate(entities=arcade.Scene()):
     # entities.add_sprite("stage", arcade.Sprite("res/stage/platform1.png", center_x=500, center_y=100))
     entities.add_sprite_list("stage", use_spatial_hash=True)
     # entities.add_sprite("stage", Stage("res/stage/platform1.png", 500, 100))
-    # TEST PLATFORM
-    for x in range(0, 1250, 64):
-            floor = arcade.Sprite("res/stage/platform1.png")
+    # creates floor for total length with randomized images
+    for x in range(0, 12500, 100):
+            floor = arcade.Sprite(constants.FLOOR_IMAGES[random.randint(0,3)])
             floor.center_x = x
-            floor.center_y = 64
+            floor.center_y = constants.FLOOR_HEIGHT
+
             entities.add_sprite("stage", floor)
+    # adds a (4 pngs) platform at the first height so other heights can be reached 
+    for x in range(800, 1056, 100):
+        platform = arcade.Sprite(constants.FLOOR_IMAGES[random.randint(0,3)])
+        platform.center_x = x
+        platform.center_y = constants.PLATFORM_HEIGHTS[0]
+        entities.add_sprite("stage", platform)
+
+    # continues randomized platforms at random (given) platform heights for rest of the map
+    for x in range(1184, 12500, 100):
+        platformChance = random.randint(0,4)
+        gemChance = random.randint(0, 6)
+        # if 4 is the random int, it will leave a blank space instead of a platform
+        if platformChance == 4:
+             continue
+
+        platform = arcade.Sprite(constants.FLOOR_IMAGES[platformChance])
+        platform.center_x = x
+        platform.center_y = constants.PLATFORM_HEIGHTS[random.randint(0,2)] #gives height of platform from list in Constants
+        entities.add_sprite("stage", platform)
+
+        if gemChance == 5:
+            bufferHeight = 80
+            gem = arcade.Sprite(constants.GEM_IMAGES[random.randint(0, len(constants.GEM_IMAGES) - 1)])
+            gem.center_x = x
+            gem.center_y = platform.center_y + bufferHeight
+            entities.add_sprite("drops", gem)
+        
     return entities
 
 if __name__ == "__main__":

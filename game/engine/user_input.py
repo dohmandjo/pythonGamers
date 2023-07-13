@@ -20,9 +20,10 @@ class UserInput():
         for key in ups:
             if key in self._key_list:
                 y = 1 * magnitude
-        for key in downs:
-            if key in self._key_list:
-                y = -1 * magnitude
+    # don't need movement for downward right now
+        # for key in downs:
+        #     if key in self._key_list:
+        #         y = -1 * magnitude
         for key in rights:
             if key in self._key_list:
                 x = 1 * magnitude
