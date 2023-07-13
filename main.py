@@ -85,8 +85,9 @@ def populate(entities=arcade.Scene()):
     # entities.add_sprite("stage", arcade.Sprite("res/stage/platform1.png", center_x=500, center_y=100))
     entities.add_sprite_list("stage", use_spatial_hash=True)
     # entities.add_sprite("stage", Stage("res/stage/platform1.png", 500, 100))
+    
     # creates floor for total length with randomized images
-    for x in range(0, 12500, 100):
+    for x in range(0, constants.RUN_LENGTH, 100):
             floor = arcade.Sprite(constants.FLOOR_IMAGES[random.randint(0,3)])
             floor.center_x = x
             floor.center_y = constants.FLOOR_HEIGHT
@@ -100,9 +101,9 @@ def populate(entities=arcade.Scene()):
         entities.add_sprite("stage", platform)
 
     # continues randomized platforms at random (given) platform heights for rest of the map
-    for x in range(1184, 12500, 100):
+    for x in range(1184, constants.RUN_LENGTH, 100):
         platformChance = random.randint(0,4)
-        gemChance = random.randint(0, 6)
+        gemChance = random.randint(0, 5)
         # if 4 is the random int, it will leave a blank space instead of a platform
         if platformChance == 4:
              continue
@@ -112,6 +113,7 @@ def populate(entities=arcade.Scene()):
         platform.center_y = constants.PLATFORM_HEIGHTS[random.randint(0,2)] #gives height of platform from list in Constants
         entities.add_sprite("stage", platform)
 
+        #when gemChance == 5, we create a gem in that spot
         if gemChance == 5:
             bufferHeight = 80
             gem = arcade.Sprite(constants.GEM_IMAGES[random.randint(0, len(constants.GEM_IMAGES) - 1)])
