@@ -1,4 +1,3 @@
-from turtle import position
 import arcade
 from game.engine.user_input import UserInput
 from game.engine.physics import Physics

@@ -10,7 +10,7 @@ import random
 
 SETTINGS_FILE = "settings.json"
 
-WINDOW_TITLE = "Game name goes here"
+WINDOW_TITLE = "Me, Mineself, and I"
 
 PLAYER_IMAGES = ["res/miner.png", "res/miner-run.png"]
 PLAYER_CONTROLS = [[arcade.key.W, arcade.key.UP], 
