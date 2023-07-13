@@ -57,8 +57,8 @@ class ArcadeEngine(arcade.Window):
         self.x_limit = max([sprite.center_x for sprite in self.entities.get_sprite_list("stage")])
         self.player1.teleport(self.x_limit / 2, self.player1.center_y)
         print(self.x_limit)
-        for i in range(1, 7):
-            self.backgrounds.append(arcade.Sprite(f"res/background/bg-layer{i}.png"))
+        for i in range(1, 8):
+            self.backgrounds.append(arcade.Sprite(f"res/background/bg-layer{i}.png", scale=1.5))
         # List of music
         self.music_list = ["res/sfx/start.wav","res/sfx/background.wav"]
         self.play_song()
@@ -78,7 +78,7 @@ class ArcadeEngine(arcade.Window):
             # if i == 0:
             #     layer.center_x = x
             # else:
-            layer.center_x = x + ((self.x_limit / 2 - self.player1.center_x) / ((7 - i) * 3))
+            layer.center_x = x + ((self.x_limit / 2 - self.player1.center_x) / ((8 - i) * 3))
             layer.center_y = y
         # Add to gem pickup and coal pickup
         gemget = arcade.check_for_collision_with_list(self.entities["player"][0], self.entities["drops"])
