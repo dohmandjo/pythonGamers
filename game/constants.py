@@ -24,6 +24,7 @@ RUN_LENGTH = 12500
 PLATFORM_HEIGHTS = (264, 464, 664)
 
 GEM_IMAGES = ["res/drop/black-gem.png", "res/drop/red-gem.png", "res/drop/blue-gem.png", "res/drop/yellow-gem.png", "res/drop/green-gem.png", "res/drop/rock.png", "res/drop/coal.png"]
+SCORE_DISPLAY = 23
 
 STARTING_LEVEL = 0
 

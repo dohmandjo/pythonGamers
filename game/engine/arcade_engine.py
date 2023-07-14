@@ -21,6 +21,7 @@ class ArcadeEngine(arcade.Window):
         self.backgrounds = arcade.SpriteList()
         self.physics = Physics(self.entities)
         self.user_input = UserInput()
+        self.score = len(self.entities["drops"])
         self.startsfx = arcade.load_sound("res/sfx/start.wav")
         # Add sounds
         self.bgm = arcade.load_sound("res/sfx/background.wav")
@@ -62,6 +63,7 @@ class ArcadeEngine(arcade.Window):
         # List of music
         self.music_list = ["res/sfx/start.wav","res/sfx/background.wav"]
         self.play_song()
+        self.score = len(self.entities["drops"])
 
     def on_update(self, delta_time: float):
         """
@@ -86,6 +88,7 @@ class ArcadeEngine(arcade.Window):
            gem.remove_from_sprite_lists()
            arcade.play_sound(self.gemsfx)
            print(len(self.entities["drops"]))
+           self.score = len(self.entities["drops"])
            if len(self.entities["drops"]) == 0 :
                self.player1.can_move = False
                self.physics.gravity_constant = 0
@@ -114,12 +117,16 @@ class ArcadeEngine(arcade.Window):
         self.entities.draw()
         self.layers["gui"].use()
         # Draw GUI elements here!!
+        score_text = f"Items Left: {self.score}"
+        arcade.draw_text(score_text, constants.SCORE_DISPLAY , constants.SCORE_DISPLAY, arcade.csscolor.WHITE, 18)
+
 
         return super().on_draw()
     
     def camera_update(self):
         screen_center_x = self.player1.center_x - (self.layers["level"].viewport_width  / 2)
         screen_center_y = self.player1.center_y - (self.layers["level"].viewport_height / 2)
+        
 
         # Don't let camera travel past 0
         if screen_center_x < 0:
