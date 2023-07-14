@@ -1,11 +1,10 @@
 # Me, Mineself, and I
 
 ## Overview
-{Provide a description of your team project.  Describe how to use the software.}
 
 A platformer game made with Python using the Arcade library. 
 
-Run around, collect gems, avoid worthless rocks, and don't fall off!
+Run around, collect gems and rocks, and don't touch the lava!
 
 [Software Demo Video](http://youtube.link.goes.here)
 
