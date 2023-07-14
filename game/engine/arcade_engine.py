@@ -27,7 +27,7 @@ class ArcadeEngine(arcade.Window):
         self.coalsfx = arcade.load_sound("res/sfx/coal.wav")
         self.gemsfx = arcade.load_sound("res/sfx/gemget.wav")
         self.startsfx = arcade.load_sound("res/sfx/start.wav")
-        self.winsfx = arcade.load_sound("res/sfx/win.mp3")
+        self.winsfx = arcade.load_sound("res/sfx/win.wav")
         #arcade.Sound(self.bgm, streaming=True)
         self.music_list = []
         self.current_song_index = 0
@@ -64,7 +64,7 @@ class ArcadeEngine(arcade.Window):
         for i in range(1, 8):
             self.backgrounds.append(arcade.Sprite(f"res/background/bg-layer{i}.png", scale=1.5))
         # List of music
-        self.music_list = ["res/sfx/start.wav","res/sfx/background.wav","res/sfx/end.mp3"]
+        self.music_list = ["res/sfx/start.wav","res/sfx/background.wav","res/sfx/end.wav"]
         self.play_song()
         self.score = len(self.entities["drops"])
 
