@@ -57,7 +57,7 @@ class ArcadeEngine(arcade.Window):
         self.layers["background"] = arcade.Camera(self.width, self.height)
         self.layers["level"] = arcade.Camera(self.width, self.height)
         self.layers["gui"] = arcade.Camera(self.width, self.height)
-        self.x_limit = max([sprite.center_x for sprite in self.entities.get_sprite_list("stage")])
+        self.x_limit = max([sprite.center_x + (sprite.width / 2) for sprite in self.entities.get_sprite_list("stage")])
         self.player1.teleport(self.x_limit / 2, self.player1.center_y)
         for i in range(1, 8):
             self.backgrounds.append(arcade.Sprite(f"res/background/bg-layer{i}.png", scale=1.5))
@@ -81,7 +81,7 @@ class ArcadeEngine(arcade.Window):
             # if i == 0:
             #     layer.center_x = x
             # else:
-            layer.center_x = x + ((self.x_limit / 2 - self.player1.center_x) / ((8 - i) * 3))
+            layer.center_x = x + (self.x_limit / 2 - self.layers["level"].position.x) / ((9 - i) * 3)
             layer.center_y = y
         # Add to gem pickup and coal pickup
         gemget = arcade.check_for_collision_with_list(self.entities["player"][0], self.entities["drops"])
@@ -122,7 +122,6 @@ class ArcadeEngine(arcade.Window):
         score_text = f"Items Left: {self.score}"
         arcade.draw_text(score_text, constants.SCORE_DISPLAY , constants.SCORE_DISPLAY, arcade.csscolor.WHITE, 18)
 
-
         return super().on_draw()
     
     def camera_update(self):
@@ -135,6 +134,11 @@ class ArcadeEngine(arcade.Window):
             screen_center_x = 0
         if screen_center_y < 0:
             screen_center_y = 0
+        # Don't let camera travel past map limit
+        if screen_center_x > self.x_limit - (self.layers["level"].viewport_width):
+            screen_center_x = self.x_limit - (self.layers["level"].viewport_width)
+        if screen_center_y > self.x_limit - (self.layers["level"].viewport_width):
+            screen_center_y = self.x_limit - (self.layers["level"].viewport_width)
         player_centered = screen_center_x, screen_center_y * .75
 
         self.layers["level"].move_to(player_centered)
