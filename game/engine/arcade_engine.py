@@ -21,12 +21,12 @@ class ArcadeEngine(arcade.Window):
         self.backgrounds = arcade.SpriteList()
         self.physics = Physics(self.entities)
         self.user_input = UserInput()
-        self.startsfx = arcade.load_sound("res/sfx/start.wav")
         # Add sounds
         self.bgm = arcade.load_sound("res/sfx/background.wav")
         self.coalsfx = arcade.load_sound("res/sfx/coal.wav")
         self.gemsfx = arcade.load_sound("res/sfx/gemget.wav")
         self.startsfx = arcade.load_sound("res/sfx/start.wav")
+        self.winsfx = arcade.load_sound("res/sfx/win.mp3")
         #arcade.Sound(self.bgm, streaming=True)
         self.music_list = []
         self.current_song_index = 0
@@ -47,6 +47,9 @@ class ArcadeEngine(arcade.Window):
          """ Advance our pointer to the next song. This does NOT start the song. """
          if self.current_song_index == 0:
              self.current_song_index = 1
+        #Switch to final song after game completion
+         if self.player1.can_move == False:
+            self.current_song_index = 2
 
     def setup(self):
        
@@ -60,7 +63,7 @@ class ArcadeEngine(arcade.Window):
         for i in range(1, 8):
             self.backgrounds.append(arcade.Sprite(f"res/background/bg-layer{i}.png", scale=1.5))
         # List of music
-        self.music_list = ["res/sfx/start.wav","res/sfx/background.wav"]
+        self.music_list = ["res/sfx/start.wav","res/sfx/background.wav","res/sfx/end.mp3"]
         self.play_song()
 
     def on_update(self, delta_time: float):
@@ -89,6 +92,8 @@ class ArcadeEngine(arcade.Window):
            if len(self.entities["drops"]) == 0 :
                self.player1.can_move = False
                self.physics.gravity_constant = 0
+               # Victory SFX
+               arcade.play_sound(self.winsfx)
                
         # arcade.play_sound(coalsfx,1.0,-1,False,1)
        
