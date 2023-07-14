@@ -12,7 +12,7 @@ from game import constants
 
 class Entity(arcade.Sprite):
 
-    def __init__(self, sprite_sheet=None, x=0, y=0):
+    def __init__(self, sprite_sheet=[None], x=0, y=0):
         """ 
             Initialize the arcade.Sprite class. 
             The bare minimum `Sprite` requires is an image to point to, which *can* be `None`.
