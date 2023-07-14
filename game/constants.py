@@ -23,6 +23,8 @@ FLOOR_HEIGHT = 64
 RUN_LENGTH = 12500
 PLATFORM_HEIGHTS = (264, 464, 664)
 
+LAVA_IMAGES = ["res/stage/lava-column.png", "res/stage/lava-ground-erupt.png"]
+
 GEM_IMAGES = ["res/drop/black-gem.png", "res/drop/red-gem.png", "res/drop/blue-gem.png", "res/drop/yellow-gem.png", "res/drop/green-gem.png", "res/drop/rock.png", "res/drop/coal.png"]
 SCORE_DISPLAY = 23
 
