@@ -79,8 +79,12 @@ def main():
     engine.run()
 
 def populate(entities=arcade.Scene()):
-    # entities.add_sprite("player", arcade.Sprite(constants.PLAYER_IMAGES[0], center_x=500, center_y=500))
-    entities.add_sprite("player", Player(constants.PLAYER_IMAGES, constants.PLAYER_CONTROLS))
+    # Lazy animation/orientation implementation.
+    textures = []
+    for file in constants.PLAYER_IMAGES:
+        textures.append(arcade.load_texture(file))
+        textures.append(arcade.load_texture(file, flipped_horizontally=True))
+    entities.add_sprite("player", Player(textures, constants.PLAYER_CONTROLS))
     entities.get_sprite_list("player").sprite_list[0].teleport(500, 500)
     # entities.add_sprite("stage", arcade.Sprite("res/stage/platform1.png", center_x=500, center_y=100))
     entities.add_sprite_list("stage", use_spatial_hash=True)
