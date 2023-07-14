@@ -4,6 +4,8 @@
 
 A platformer game made with Python using the Arcade library. 
 
+You are a miner wanting to collect all of the rocks, gems, and coal. There is a counter of all the items you have left to find in the cave. When this counter reaches 0 you have completed the level! (currently only one level).
+
 Run around, collect gems and rocks, and don't touch the lava!
 
 [Software Demo Video](http://youtube.link.goes.here)

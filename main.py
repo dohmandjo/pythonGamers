@@ -106,13 +106,13 @@ def populate(entities=arcade.Scene()):
 
     #creates lava walls on edges
     # left wall
-    for y in range (0, 1064, 100):
+    for y in range (0, constants.WALL_HEIGHT, 100):
         wall = arcade.Sprite(constants.LAVA_IMAGES[0])
         wall.center_x = 80
         wall.center_y = y
         entities.add_sprite("stage", wall)
     #right wall
-    for y in range (0, 1064, 100):
+    for y in range (0, constants.WALL_HEIGHT, 100):
          wall = arcade.Sprite(constants.LAVA_IMAGES[0])
          wall.center_x = constants.RUN_LENGTH
          wall.center_y = y
