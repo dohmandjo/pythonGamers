@@ -36,7 +36,6 @@ class ArcadeEngine(arcade.Window):
     def play_song(self):
         """ Play the song. """
         # Play the next song
-        print(f"Playing {self.music_list[self.current_song_index]}")
         self.music = arcade.Sound(self.music_list[self.current_song_index], streaming=True)
         self.current_player = self.music.play(constants.MUSIC_VOLUME)
         # This is a quick delay. If we don't do this, our elapsed time is 0.0
@@ -60,7 +59,6 @@ class ArcadeEngine(arcade.Window):
         self.layers["gui"] = arcade.Camera(self.width, self.height)
         self.x_limit = max([sprite.center_x for sprite in self.entities.get_sprite_list("stage")])
         self.player1.teleport(self.x_limit / 2, self.player1.center_y)
-        print(self.x_limit)
         for i in range(1, 8):
             self.backgrounds.append(arcade.Sprite(f"res/background/bg-layer{i}.png", scale=1.5))
         # List of music
@@ -90,7 +88,6 @@ class ArcadeEngine(arcade.Window):
         for gem in gemget:
            gem.remove_from_sprite_lists()
            arcade.play_sound(self.gemsfx)
-           print(len(self.entities["drops"]))
            self.score = len(self.entities["drops"])
            if len(self.entities["drops"]) == 0 :
                self.player1.can_move = False
