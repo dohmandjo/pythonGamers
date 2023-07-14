@@ -104,8 +104,22 @@ def populate(entities=arcade.Scene()):
     #     platform.center_y = constants.PLATFORM_HEIGHTS[0]
     #     entities.add_sprite("stage", platform)
 
+    #creates lava walls on edges
+    # left wall
+    for y in range (0, 1064, 100):
+        wall = arcade.Sprite(constants.LAVA_IMAGES[0])
+        wall.center_x = 80
+        wall.center_y = y
+        entities.add_sprite("stage", wall)
+    #right wall
+    for y in range (0, 1064, 100):
+         wall = arcade.Sprite(constants.LAVA_IMAGES[0])
+         wall.center_x = constants.RUN_LENGTH
+         wall.center_y = y
+         entities.add_sprite("stage", wall)
+
     # continues randomized platforms at random (given) platform heights for rest of the map
-    for x in range(100, constants.RUN_LENGTH, 100):
+    for x in range(230, constants.RUN_LENGTH - 150, 100):
         platformChance = random.randint(0,4)
         gemChance = random.randint(0, 5)
         # if 4 is the random int, it will leave a blank space instead of a platform
