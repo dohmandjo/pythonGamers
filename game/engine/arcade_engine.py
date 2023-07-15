@@ -93,7 +93,7 @@ class ArcadeEngine(arcade.Window):
                self.player1.can_move = False
                self.physics.gravity_constant = 0
                # Victory SFX
-               arcade.play_sound(self.winsfx)
+               arcade.play_sound(self.winsfx,3)
                
         # arcade.play_sound(coalsfx,1.0,-1,False,1)
        
