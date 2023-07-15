@@ -43,6 +43,8 @@ winget install Microsoft.VisualStudioCode --source winget
 {Make a list of websites that you found helpful in this project}
 * [Python.org](http://python.org)
 * [Python Arcade API Documentation](https://api.arcade.academy/en/stable/)
+* [Piskelapp](https://www.piskelapp.com/)
+* [Real Python](https://realpython.com/)
 
 ## Future Work
 
@@ -50,3 +52,4 @@ winget install Microsoft.VisualStudioCode --source winget
 * Multiple Levels
 * Game Pause functionality
 * Local Multiplayer
+* Improve all animations
