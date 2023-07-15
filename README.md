@@ -1,11 +1,12 @@
-# [NAME OF THE STINKING GAME]
+# Me, Mineself, and I
 
 ## Overview
-{Provide a description of your team project.  Describe how to use the software.}
 
 A platformer game made with Python using the Arcade library. 
 
-Run around, collect gems, avoid worthless rocks, and don't fall off!
+You are a miner wanting to collect all of the rocks, gems, and coal. There is a counter of all the items you have left to find in the cave. When this counter reaches 0 you have completed the level! (currently only one level).
+
+Run around, collect gems and rocks, and don't touch the lava!
 
 [Software Demo Video](http://youtube.link.goes.here)
 
@@ -42,6 +43,8 @@ winget install Microsoft.VisualStudioCode --source winget
 {Make a list of websites that you found helpful in this project}
 * [Python.org](http://python.org)
 * [Python Arcade API Documentation](https://api.arcade.academy/en/stable/)
+* [Piskelapp](https://www.piskelapp.com/)
+* [Real Python](https://realpython.com/)
 
 ## Future Work
 
@@ -49,3 +52,4 @@ winget install Microsoft.VisualStudioCode --source winget
 * Multiple Levels
 * Game Pause functionality
 * Local Multiplayer
+* Improve all animations

@@ -1,5 +1,5 @@
 """ 
-    [GAME TITLE HERE]
+    Me, Mineself, and I
     Filesystem:
 
         /
@@ -75,48 +75,53 @@ def main():
          SETTINGS["windowed_width"], 
          SETTINGS["windowed_height"]
     )
-
-    # Add sounds
-    bgm = arcade.load_sound(
-    "res/sfx/background.wav"
-)
-    coalsfx = arcade.load_sound(
-    "res/sfx/coal.wav"
-)
-    gemsfx = arcade.load_sound(
-    "res/sfx/gemget.wav"
-)
-    startsfx = arcade.load_sound(
-    "res/sfx/start.wav"
-)
     engine.setup()
     engine.run()
 
 def populate(entities=arcade.Scene()):
-    # entities.add_sprite("player", arcade.Sprite(constants.PLAYER_IMAGES[0], center_x=500, center_y=500))
-    entities.add_sprite("player", Player(constants.PLAYER_IMAGES, constants.PLAYER_CONTROLS))
+    # Lazy animation/orientation implementation.
+    textures = []
+    for file in constants.PLAYER_IMAGES:
+        textures.append(arcade.load_texture(file))
+        textures.append(arcade.load_texture(file, flipped_horizontally=True))
+    entities.add_sprite("player", Player(textures, constants.PLAYER_CONTROLS))
     entities.get_sprite_list("player").sprite_list[0].teleport(500, 500)
     # entities.add_sprite("stage", arcade.Sprite("res/stage/platform1.png", center_x=500, center_y=100))
     entities.add_sprite_list("stage", use_spatial_hash=True)
     # entities.add_sprite("stage", Stage("res/stage/platform1.png", 500, 100))
+
     # creates floor for total length with randomized images
-    for x in range(0, 12500, 100):
+    for x in range(0, constants.RUN_LENGTH + 1, 100):
             floor = arcade.Sprite(constants.FLOOR_IMAGES[random.randint(0,3)])
             floor.center_x = x
             floor.center_y = constants.FLOOR_HEIGHT
 
             entities.add_sprite("stage", floor)
     # adds a (4 pngs) platform at the first height so other heights can be reached 
-    for x in range(800, 1056, 100):
-        platform = arcade.Sprite(constants.FLOOR_IMAGES[random.randint(0,3)])
-        platform.center_x = x
-        platform.center_y = constants.PLATFORM_HEIGHTS[0]
-        entities.add_sprite("stage", platform)
+    # for x in range(800, 1056, 100):
+    #     platform = arcade.Sprite(constants.FLOOR_IMAGES[random.randint(0,3)])
+    #     platform.center_x = x
+    #     platform.center_y = constants.PLATFORM_HEIGHTS[0]
+    #     entities.add_sprite("stage", platform)
+
+    #creates lava walls on edges
+    # left wall
+    for y in range (0, constants.WALL_HEIGHT, 100):
+        wall = arcade.Sprite(constants.LAVA_IMAGES[0])
+        wall.center_x = 80
+        wall.center_y = y
+        entities.add_sprite("stage", wall)
+    #right wall
+    for y in range (0, constants.WALL_HEIGHT, 100):
+         wall = arcade.Sprite(constants.LAVA_IMAGES[0])
+         wall.center_x = constants.RUN_LENGTH
+         wall.center_y = y
+         entities.add_sprite("stage", wall)
 
     # continues randomized platforms at random (given) platform heights for rest of the map
-    for x in range(1184, 12500, 100):
+    for x in range(230, constants.RUN_LENGTH - 150, 100):
         platformChance = random.randint(0,4)
-        gemChance = random.randint(0, 6)
+        gemChance = random.randint(0, 5)
         # if 4 is the random int, it will leave a blank space instead of a platform
         if platformChance == 4:
              continue
@@ -126,6 +131,7 @@ def populate(entities=arcade.Scene()):
         platform.center_y = constants.PLATFORM_HEIGHTS[random.randint(0,2)] #gives height of platform from list in Constants
         entities.add_sprite("stage", platform)
 
+        #when gemChance == 5, we create a gem in that spot
         if gemChance == 5:
             bufferHeight = 80
             gem = arcade.Sprite(constants.GEM_IMAGES[random.randint(0, len(constants.GEM_IMAGES) - 1)])
