@@ -8,7 +8,7 @@ You are a miner wanting to collect all of the rocks, gems, and coal. There is a 
 
 Run around, collect gems and rocks, and don't touch the lava!
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/M-bzcdP43QI)
 
 ## Development Environment
 
